@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8" />
+    <title>My Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link ref="stylesheet" href="./fonts/confortaa.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+
+
+
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              comfortaa: ["Comfortaa"],
+              montserrat : ["Montserrat"] ,
+                nunito : ["Nunito Sans", "sans-serif"]
+              
+            },
+            boxShadow :{
+                'item' : '0 3px 15px #707070'
+            },
+            screens: {
+      'sm': '600px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 992px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1200px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    }
+            
+          },
+        },
+      };
+    </script>
+    <style>
+      .slider , .slider2 {
+        margin: 0;
+        width: 100%;
+        display: flex;
+
+      }
+      .slick-prev{
+        left : 2% ;
+        z-index: 2;
+      }
+      .slick-next{
+        right : 2% ;
+      }
+      .slick-prev:before,
+      .slick-next:before {
+        font-size: 30px;      
+      }
+      .slick-dots{
+        bottom: 25px;
+        font-size: 30px;
+      }
+      .slick-dots li button:before {
+      }
+      @keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+  
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) rotate(-5deg); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.9s infinite;
+  cursor : pointer ;
+}
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.fb-icon img {
+  font-size: 24px;
+  transition: all .2s ease-in-out;
+}
+
+.fb-icon:hover img {
+  transform: scale(1.2);
+  text-shadow: 0 0 10px rgba(59, 89, 152, 0.5);
+  color: #fff;
+}
+
+.fb-icon::before,
+.fb-icon::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.fb-icon::before {
+  top: -5px;
+  left: -5px;
+  width: 0px;
+  height: 0px;
+  box-shadow: 0 0 0 0 rgba(59, 89, 152, 0.7);
+  animation: fb-icon-animation 1s infinite;
+}
+
+.fb-icon::after {
+  bottom: -5px;
+  right: -5px;
+  width: 0px;
+  height: 0px;
+  box-shadow: 0 0 0 0 rgba(59, 89, 152, 0.7);
+  animation: fb-icon-animation 1s 0.5s infinite;
+}
+
+@keyframes fb-icon-animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+  }
+}
+    </style>
+       <script>
+        $(document).ready(function () {
+          $(".slider").slick({
+            dots: false, // Hiển thị các chấm tròn để chuyển đổi ảnh
+            infinite: true, // Tự động lặp lại slideshow
+            speed: 500, // Tốc độ chuyển đổi giữa các ảnh (ms)
+            slidesToShow: 1, // Số ảnh hiển thị trên mỗi lần chuyển đổi
+            slidesToScroll: 1, // Số ảnh chuyển đổi khi bấm nút next/prev
+            autoplay: true, // Tự động chuyển đổi ảnh
+            autoplaySpeed: 3000, // Thời gian chuyển đổi ảnh tự động (ms)
+            responsive: [
+              {
+                breakpoint: 768, // Khi kích thước màn hình nhỏ hơn 768px
+                settings: {
+                  slidesToShow: 1, // Hiển thị 2 ảnh trên mỗi lần chuyển đổi
+                  slidesToScroll: 1, // Chuyển đổi 1 ảnh khi bấm nút next/prev
+                },
+              },
+              {
+                breakpoint: 480, // Khi kích thước màn hình nhỏ hơn 480px
+                settings: {
+                  slidesToShow: 1, // Hiển thị 1 ảnh trên mỗi lần chuyển đổi
+                  slidesToScroll: 1, // Chuyển đổi 1 ảnh khi bấm nút next/prev
+                },
+              },
+            ],
+          });
+          var startIndex = 0;
+  var endIndex = 2;
+  var currentImages = $('#image-list li').slice(startIndex, endIndex + 1);
+  currentImages.show();
+  $("#next-btn").click(function() {
+    console.log('vào rồi' ,endIndex , $('#image-list li').length);
+    // Tăng chỉ số bắt đầu và kết thúc của mảng con 3 ảnh
+    startIndex += 1;
+    endIndex += 1;
+
+    // Nếu kết thúc của mảng con vượt quá số lượng ảnh trong danh sách,
+    // thì đặt lại kết thúc của mảng con là ảnh cuối cùng trong danh sách
+    if (endIndex >= $('#image-list li').length) {
+        startIndex -= 1;
+      endIndex = $('#image-list li').length - 1;
+    }
+
+    // Lấy mảng con 3 ảnh tiếp theo
+    currentImages.hide();
+    currentImages = $('#image-list li').slice(startIndex, endIndex + 1);
+
+    // Hiển thị 3 ảnh tiếp theo
+    currentImages.show();
+  });
+  $("#prev-btn").click(function() {
+    console.log('vào rồi' ,endIndex , $('#image-list li').length);
+    // Tăng chỉ số bắt đầu và kết thúc của mảng con 3 ảnh
+    startIndex -= 1;
+    endIndex -= 1;
+
+    // Nếu kết thúc của mảng con vượt quá số lượng ảnh trong danh sách,
+    // thì đặt lại kết thúc của mảng con là ảnh cuối cùng trong danh sách
+    if (startIndex < 0) {
+      startIndex = 0;
+      endIndex  = 2
+    }
+
+    // Lấy mảng con 3 ảnh tiếp theo
+    currentImages.hide();
+    currentImages = $('#image-list li').slice(startIndex, endIndex + 1);
+
+    // Hiển thị 3 ảnh tiếp theo
+    currentImages.show();
+  });
+
+
+          $('#image-list li').click(function() {
+        var imgSrc = $(this).find('img').attr('src');
+         $('#preview').attr('src', imgSrc);
+         });
+
+         $('#preview').click(function() {
+            $('html, body').css('overflow', 'hidden');
+            var data =  $('#preview').attr('src')
+            $('#preview2').attr('src', data);
+
+             $('#handlePreview').addClass('block');
+            $('#handlePreview').removeClass('hidden ')
+         })
+         $('#close').click(function() {
+             $('#handlePreview').addClass('hidden');
+              $('#handlePreview').removeClass('block ')
+              $('html, body').css('overflow', 'auto');
+         })
+         $('#close2').click(function() {
+             $('#handlePreview').addClass('hidden');
+              $('#handlePreview').removeClass('block ')
+              $('html, body').css('overflow', 'auto');
+         })
+        });
+        $(window).scroll(function() {
+  var scroll = $(window).scrollTop();
+  if (scroll > 100) {
+    $('header').addClass('translate-y-0 opacity-100 z-20 opacity-90 ');
+    $('header').removeClass('-translate-y-full opacity-0  ');
+
+  } else {
+    $('header').addClass('-translate-y-full opacity-0 ');
+    $('header').removeClass('translate-y-0 opacity-100');
+  }
+  if(scroll>20){
+    $('.title').addClass('translate-y-0 opacity-100 z-20 opacity-90 ');
+    $('.title').removeClass('-translate-y-full opacity-0  ');
+  }
+});
+// $(document).ready(function () {
+       
+//         });
+        </script>
+  </head>
+  <body>
+    <!-- header -->
+
+      <header class="h-[125px] lg:h-[85px] flex items-center justify-between block  bg-white shadow-lg py-4 transition duration-500 ease-in-out transform -translate-y-full opacity-0 fixed top-0 left-0 w-full h-0 ">
+        <div class="ml-20 flex items-center">
+          <div class="h-full">
+            <img class="object-cover object-center w-[85px]" src="./image/logo.png" />
+          </div>
+          <p class="font-medium md:text-[30px] lg:text-[28.44px] leading-8 font-comfortaa">
+            caosuthiennhienwe
+          </p>
+        </div>
+        <div class="h-[40px] flex items-center mr-12 gap-x-1 lg:text-xl leading-[30px] sm:text-4xl leading-[60px]">
+          <i class="fa-solid fa-phone-volume"></i>
+          <p class="font-bold ">0933515689</p>
+        </div>
+        </header>
+        <div  class="h-[125px] lg:h-[85px]  absolute text-white top-0 left-0 w-full z-10 header2 h-[85px] flex items-center justify-between block  shadow-lg py-4 transition duration-500 ease-in-out transform translate-y-0">
+            <div class="ml-20 flex items-center">
+              <div class="h-full">
+                <img class="object-cover object-center w-[85px]" src="./image/logo.png" />
+              </div>
+              <p class="font-medium md:text-[30px] lg:text-[28.44px] leading-8 font-comfortaa text-[24px]">
+                caosuthiennhienwe
+              </p>
+            </div>
+            <div class="h-[40px] flex items-center mr-12 gap-x-1 lg:text-xl leading-[30px] sm:text-4xl leading-[60px]">
+              <i class="fa-solid fa-phone-volume"></i>
+              <p class="font-bold ">0933515689</p>
+            </div>
+          </div>
+    <main class="bg-[#F3F2EE] w-full mx-auto overflow-hidden pb-[60px]">
+      <!-- content -->
+      <div class="slider">
+        <div><img class="w-full h-[720px] object-cover object-center"  src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm A" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content2.jpg" alt="Ảnh minh họa cho sản phẩm B" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content3.jpg" alt="Ảnh minh họa cho sản phẩm C" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm D" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm E" /></div>
+      </div>
+      <!-- product -->
+       <!-- branch -->
+       <div class="px-[80px] pt-[80px]  max-w-[1440px] mx-auto ">
+        <div class="flex gap-x-[61px] flex-col xl:flex-row border-b border-[#00000080] pb-[110px]">
+            <div>
+                <div class="md:w-[625px] md:h-[510px] mx-auto">
+                    <img id="preview" class=" shadow-item w-full h-full object-cover object-center cursor-pointer mx-[10px]" src="./product/product.jpg" />
+                </div>
+           <div class="flex mt-[50px] justify-center xl:justify-start ">
+            <div >
+                    <button id="prev-btn" class=" p-2 h-full border rounded border-black"> <i class="fa-solid fa-caret-left"></i></i></button>
+            </div>
+            <div id="image-list" class=" flex">
+                <li class="list-none hidden">
+                    <img class=" shadow-item w-[70px] h-[70px] object-cover object-center cursor-pointer mx-[10px] "  src="./product/product1.jpg" alt="Ảnh minh họa cho sản phẩm A" />
+                </li>
+                <li class="list-none hidden">
+                    <img class=" shadow-item w-[70px] h-[70px] object-cover object-center cursor-pointer mx-[10px]"  src="./product/product.jpg" alt="Ảnh minh họa cho sản phẩm A" />
+                </li>
+                <li class="list-none hidden">
+                    <img class="shadow-item w-[70px] h-[70px] object-cover object-center cursor-pointer mx-[10px]"  src="./product/product2.jpg" alt="Ảnh minh họa cho sản phẩm A" />
+                </li>
+                <li class="list-none hidden" >
+                    <img class="shadow-item w-[70px] h-[70px] object-cover object-center cursor-pointer mx-[10px]"  src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm A" />
+                </li>
+                <li class="list-none hidden" >
+                    <img class="shadow-item w-[70px] h-[70px] object-cover object-center cursor-pointer mx-[10px]"  src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm A" />
+                </li>
+                <li class="list-none hidden" >
+                    <img class="shadow-item w-[70px] h-[70px] object-cover object-center cursor-pointer mx-[10px]"  src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm A" />
+                </li>
+
+              </div>
+              <div >
+                <button id="next-btn" class=" p-2 h-full border rounded border-black"> <i class="fa-solid fa-caret-right"></i></i></i></button>
+
+        </div>
+           </div>
+            </div>
+            <ul class="flex flex-col  gap-y-[32px] mt-[50px]">
+                <li class="flex gap-x-[44px] flex-row  xl:flex-row">
+                    <label class="w-[190px] font-montserrat text-[35px] leading-[66px] lg:text-2xl tracking-[-0.015em] font-bold  not-italic">Thương hiệu</label>
+                    <p class="font-montserrat font-normal text-4xl leading-[60px] lg:text-xl tracking-[-0.015em] text-[#000000cc]">W.E</p>
+                </li>
+                <li class="flex gap-x-[44px] flex-row  xl:flex-row">
+                    <label class="w-[190px] font-montserrat text-[35px] leading-[66px] lg:text-2xl tracking-[-0.015em] font-bold  not-italic">Nguồn gốc</label>
+                    <p class="font-montserrat font-normal text-4xl leading-[60px] lg:text-xl tracking-[-0.015em] text-[#000000cc]">Việt Nam</p>
+                </li>
+                <li class="flex gap-x-[44px] flex-row  xl:flex-row">
+                    <label class="w-[190px] font-montserrat text-[35px] leading-[66px] lg:text-2xl tracking-[-0.015em] font-bold  not-italic">Bảo hành</label>
+                    <p class="font-montserrat font-normal text-4xl leading-[60px] lg:text-xl tracking-[-0.015em] text-[#000000cc]">10 năm</p>
+                </li>
+                <li class="flex gap-x-[44px] flex-row  xl:flex-row">
+                    <label class="w-[190px] font-montserrat text-[35px] leading-[66px] lg:text-2xl tracking-[-0.015em] font-bold  not-italic">Kích thước</label>
+                    <ul class="font-montserrat font-normal text-4xl leading-[60px] lg:text-xl tracking-[-0.015em] text-[#000000cc] flex flex-col gap-y-[20px]">
+                      <li>  1m2x2m (5p,7.5p,10p)</li>
+                      <li>1m4x2m (5p,7.5p,10p)
+                    </li>
+                    <li> 1m6x2m (5p,7.5p,10p,15p)
+                    </li>
+                    <li>1m8x2m (5p,7.5p,10p,15p)
+                    </li>
+                    <li> 2m2x2m (10p,15p)
+                    </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <!-- information -->
+      <div class=" mt-[80px] max-w-[1440px] mx-auto px-[80px] ">
+        <h4 class="text-center text-6xl leading-[5rem] font-montserrat font-normal">Thông tin sản phẩm</h4>
+        <ul class="font-montserrat font-normal not-italic text-4xl lg:text-2xl leading-[60px] text-[#000000cc] ">
+            <p>Thành phần: 90% nguyên chất cao su thiên nhiên .</p>
+            <p>Ưu điểm: Độ êm ái và đàn hồi cực tốt, nâng đỡ cột sống hoàn hảo.</p>
+            <li>
+                – Thông thoáng: cấu trúc dạng bọt khí hở, với hàng triệu lỗ thông hơi, giúp không khí lưu thông một cách tối đa không gây hầm nóng cho người dùng, ấm áp vào mùa đông, thoáng mát vào mùa hè .Chất lượng cao cấp, bền bỉ theo thời gian, sử dụng trên 15 năm . Hạn chế tối đa sự rung chuyển lan truyền trên bề mặt nệm, không ảnh hưởng đến giấc ngủ người bên cạnh . Mùi thơm dịu nhẹ, an toàn tuyệt đối cho da: công nghệ sản xuất hiện đại, loại bỏ hoàn toàn tạp chất gây dị ứng và tẩy khử ra khỏi bề mặt nệm.
+            </li>
+            <li>
+                Hướng dẫn:– Không phơi trực tiếp dưới ánh nắng mặt trời
+            </li>
+            <li>
+                – Không để nệm trong môi trường ẩm ướt, thiếu thông thoáng 
+            </li>
+            <li>
+                – An toàn tuyệt đối cho người dùng
+            </li>
+            
+        </ul>
+        <div class="flex flex-col xl:flex-row gap-y-[33px]  xl:gap-x-[33px] mt-[80px]">
+            <div class="md:w-[625px] md:h-[510px]  mx-auto ">
+                <img class="w-full h-full object-cover" src="./product/product1.jpg" />
+            </div>
+            <div class="md:w-[625px] md:h-[510px]  mx-auto ">
+                <img class="w-full h-full object-cover" src="./product/product.jpg" />
+            </div>
+        </div>
+      </div>
+   
+    </main>
+    <!-- footer -->
+    <footer class="bg-[#E5E5E5] overflow-hidden">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  max-w-[1440px] mx-auto px-[80px] gap-x-[36px] pt-[60px]" >
+      <ul class="flex gap-y-[10px] flex-col">
+        <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] ">Thông tin công ty</p>
+        <div>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc]">CÔNG TY TNHH PHÁT TRIỂN THƯƠNG MẠI VÀ DỊCH VỤ LIÊN VIỆT</li>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] ">615/01 Tôn Đản, P.Hoà Phát, Q.Cẩm Lệ, TP.Đà Nẵng</li>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] ">Mã số doanh nghiệp: 0401997198</li>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc]">Ngày đăng ký: 23/08/2019 - Sở KH&ĐT TP.Đà Nẵng</li>
+        </div>
+     
+      </ul>
+      <ul class="flex gap-y-[10px] flex-col">
+        <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] ">Show room</p>
+        <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] font-normal">Lô C19 II, khu công nghiệp Thọ Quang, Trần Nhân Tông, Q.Sơn Trà, TP.Đà Nẵng</li>
+      </ul>
+      <ul class="flex gap-y-[10px] flex-col ">
+        <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] mt-[50px] md:mt-0  ">Trợ giúp mua hàng</p>
+        <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] font-normal">Quy định bảo hành</li>
+      </ul>
+      <ul class="flex gap-y-[10px] flex-col">
+        <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] mt-[50px] md:mt-0 ">Số điện thoại</p>
+        <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] font-normal xl:flex xl:gap-x-[18.5px]">
+          <i class="fa-solid fa-phone-volume text-[36px]"></i>
+          <p class="text-4xl text-xl font-nunito not-italic font-extrabold leading-[45px]">0933515689</p>
+       
+
+        </li>
+        <div>
+          <img class="w-[160px] object-cover object-center" src="./image/logoSaleNoti.png"/>
+        </div>
+      </ul>
+    </div>
+    <div class="text-center pb-[15px] font-nunito font-normal text-4xl lg:text-[15px] font-normal leading-[60px] lg:leading-[24px] tracking-[-0.015em]">
+      © 2023 caosuthiennhienwe
+    </div>
+
+    </footer>
+    <!-- contact -->
+    <div class="fixed right-[2%] bottom-[10%] ">
+      <div class="relative">
+       <img class="shadow-item  cursor-pointer animate-shake  w-[100px] h-[100px] rounded-[50%]" src="./image/phone.png" />
+       <div class="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 rounded-full animate-ping"></div>
+       <div class="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-25 rounded-full animate-pulse"></div>
+   
+      </div>
+      <div class=" rounded-[50%] h-[100px] mt-[20px] fb-icon">
+        <img class="shadow-item cursor-pointer w-[100px] h-[100px] rounded-[50%]" src="./image/zalo.webp" />
+
+      </div>
+
+    </div>
+    <!-- preview image -->
+    <div id="handlePreview" class="w-[100vw] h-[100vh] fixed  top-0 z-50 hidden">
+        <div id="close2" class="relative top-0 bg-black opacity-70 w-full h-full">
+
+        </div>
+        <div id="close" class="absolute top-[5%] right-[10%] text-white text-[40px] cursor-pointer">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="absolute top-0 left-0 right-0 bottom-0 m-auto w-[80%] md:w-[50%] h-[50%] lg:h-[600px] ">
+            <img id="preview2" class="shadow-lg h-full w-full" src="./image/content.jpg"/>
+        </div>
+
+
+    </div>
+  </body>
+</html>

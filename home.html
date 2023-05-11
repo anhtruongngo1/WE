@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8" />
+    <title>My Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link ref="stylesheet" href="./fonts/confortaa.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+
+
+
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              comfortaa: ["Comfortaa"],
+              montserrat : ["Montserrat"] ,
+                nunito : ["Nunito Sans", sans-serif]
+              
+            },
+            screens: {
+      'sm': '600px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 992px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1200px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    }
+          },
+        },
+      };
+    </script>
+    <style>
+      .slider {
+        margin: 0;
+        width: 100%;
+        display: flex;
+
+      }
+      .slick-prev{
+        left : 2% ;
+        z-index: 10;
+      }
+      .slick-next{
+        right : 2% ;
+      }
+      .slick-prev:before,
+      .slick-next:before {
+        font-size: 30px;      
+      }
+      .slick-dots{
+        bottom: 25px;
+        font-size: 30px;
+      }
+      .slick-dots li button:before {
+      }
+      @keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+  
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) rotate(-5deg); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.9s infinite;
+  cursor : pointer ;
+}
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.fb-icon img {
+  font-size: 24px;
+  transition: all .2s ease-in-out;
+}
+
+.fb-icon:hover img {
+  transform: scale(1.2);
+  text-shadow: 0 0 10px rgba(59, 89, 152, 0.5);
+  color: #fff;
+}
+
+.fb-icon::before,
+.fb-icon::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.fb-icon::before {
+  top: -5px;
+  left: -5px;
+  width: 0px;
+  height: 0px;
+  box-shadow: 0 0 0 0 rgba(59, 89, 152, 0.7);
+  animation: fb-icon-animation 1s infinite;
+}
+
+.fb-icon::after {
+  bottom: -5px;
+  right: -5px;
+  width: 0px;
+  height: 0px;
+  box-shadow: 0 0 0 0 rgba(59, 89, 152, 0.7);
+  animation: fb-icon-animation 1s 0.5s infinite;
+}
+
+@keyframes fb-icon-animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+  }}
+    </style>
+       <script>
+        $(document).ready(function () {
+          $(".slider").slick({
+            dots: false, // Hiển thị các chấm tròn để chuyển đổi ảnh
+            infinite: true, // Tự động lặp lại slideshow
+            speed: 500, // Tốc độ chuyển đổi giữa các ảnh (ms)
+            slidesToShow: 1, // Số ảnh hiển thị trên mỗi lần chuyển đổi
+            slidesToScroll: 1, // Số ảnh chuyển đổi khi bấm nút next/prev
+            autoplay: true, // Tự động chuyển đổi ảnh
+            autoplaySpeed: 3000, // Thời gian chuyển đổi ảnh tự động (ms)
+            responsive: [
+              {
+                breakpoint: 768, // Khi kích thước màn hình nhỏ hơn 768px
+                settings: {
+                  slidesToShow: 1, // Hiển thị 2 ảnh trên mỗi lần chuyển đổi
+                  slidesToScroll: 1, // Chuyển đổi 1 ảnh khi bấm nút next/prev
+                },
+              },
+              {
+                breakpoint: 480, // Khi kích thước màn hình nhỏ hơn 480px
+                settings: {
+                  slidesToShow: 1, // Hiển thị 1 ảnh trên mỗi lần chuyển đổi
+                  slidesToScroll: 1, // Chuyển đổi 1 ảnh khi bấm nút next/prev
+                },
+              },
+            ],
+          });
+        });
+        $(window).scroll(function() {
+  var scroll = $(window).scrollTop();
+  if (scroll > 100) {
+    $('header').addClass('translate-y-0 opacity-100 z-50 opacity-90 ');
+    $('header').removeClass('-translate-y-full opacity-0  ');
+
+  } else {
+    $('header').addClass('-translate-y-full opacity-0 ');
+    $('header').removeClass('translate-y-0 opacity-100');
+  }
+  console.log('check' , scroll);
+
+  
+  if(scroll>20){
+    $('.title').addClass('translate-y-0 opacity-100 z-50 opacity-90 ');
+    $('.title').removeClass('-translate-y-full opacity-0  ');
+  }
+});
+
+
+
+
+        </script>
+  </head>
+  <body>
+    <!-- header -->
+
+    <header class="h-[125px] lg:h-[85px] flex items-center justify-between block  bg-white shadow-lg py-4 transition duration-500 ease-in-out transform -translate-y-full opacity-0 fixed top-0 left-0 w-full h-0 ">
+      <div class="ml-20 flex items-center">
+        <div class="h-full">
+          <img class="object-cover object-center w-[85px]" src="./image/logo.png" />
+        </div>
+        <p class="font-medium lg:text-[28.44px] md:text-[30px] leading-8 font-comfortaa">
+          caosuthiennhienwe
+        </p>
+      </div>
+      <div class="h-[40px] flex items-center mr-12 gap-x-1 lg:text-xl leading-[30px] sm:text-4xl leading-[60px]">
+        <i class="fa-solid fa-phone-volume"></i>
+        <p class="font-bold ">0933515689</p>
+      </div>
+      </header>
+      <div  class="h-[125px] lg:h-[85px]  absolute text-white top-0 left-0 w-full z-10 header2 h-[85px] flex items-center justify-between block  shadow-lg py-4 transition duration-500 ease-in-out transform translate-y-0">
+          <div class="ml-20 flex items-center">
+            <div class="h-full">
+              <img class="object-cover object-center w-[85px]" src="./image/logo.png" />
+            </div>
+            <p class="font-medium lg:text-[28.44px] md:text-[30px] leading-8 font-comfortaa text-[24px]">
+              caosuthiennhienwe
+            </p>
+          </div>
+          <div class="h-[40px] flex items-center mr-12 gap-x-1 lg:text-xl leading-[30px] sm:text-4xl leading-[60px]">
+            <i class="fa-solid fa-phone-volume"></i>
+            <p class="font-bold ">0933515689</p>
+          </div>
+        </div>
+    <main class="bg-[#F3F2EE] w-full mx-auto overflow-hidden pb-[60px]">
+      <!-- content -->
+      <div class="slider">
+        <div><img class="w-full h-[720px] object-cover object-center"  src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm A" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content2.jpg" alt="Ảnh minh họa cho sản phẩm B" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content3.jpg" alt="Ảnh minh họa cho sản phẩm C" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm D" /></div>
+        <div><img class="w-full h-[720px]  object-cover object-center " src="./image/content.jpg" alt="Ảnh minh họa cho sản phẩm E" /></div>
+      </div>
+      <!-- product -->
+      <div class="px-[80px] max-w-[1440px] mx-auto mt-[100px]">
+          <h4 class="title text-center text-5xl leading-[4.5rem] font-nunito font-normal opacity-0 transform translate-y-2 transition-opacity duration-100 delay-100 border-b-[1px] border-gray-500  hover:border-b-2 hover:border-gray-500 transition border-b-0">Sản phẩm</h4>
+          <div   class="mt-[100px]  grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 grid-rows-3 xl:grid-rows-2 w-full gap-y-[64px] gap-x-[1%]">
+              <div class="w-[300px] sm:w-[90%]  shadow-lg bg-white rounded-lg p-4 hover:scale-110 transition duration-300 cursor-pointer">
+                   <img class="h-[227.88px] w-full object-cover object-center hover:animate-pulse "  src="./product/product.jpg" />
+                   <div>
+                    <p  class="font-nunito font-bold lg:text-[24px] text-3xl leading-9 text-[#000000] py-[24px]">Nệm đa tầng cloud</p>
+                    <p class="font-nunito font-normal lg:text-[18px] lg:leading-[30px] text-2xl leading-[40px] text-[#000000] not-italic tracking-[-0.015em] line-clamp-4">
+                      Sự kết hợp giữa nệm cao su và mousse ép tạo nên một cấu trúc vững chắc, tối ưu hóa trong việc chăm sóc giấc ngủ và bảo vệ xương cột sống của bạn
+                    </p>
+                   </div>
+              </div>
+              <div class="w-[300px] sm:w-[90%]  shadow-lg bg-white rounded-lg p-4 hover:scale-110 transition duration-300 cursor-pointer">
+                <img class="h-[227.88px] w-full object-cover object-center hover:animate-pulse "  src="./product/product.jpg" />
+                <div>
+                 <p  class="font-nunito font-bold lg:text-[24px] text-3xl leading-9 text-[#000000] py-[24px]">Nệm đa tầng cloud</p>
+                 <p class="font-nunito font-normal lg:text-[18px] lg:leading-[30px] text-2xl leading-[40px] text-[#000000] not-italic tracking-[-0.015em] line-clamp-4">
+                   Sự kết hợp giữa nệm cao su và mousse ép tạo nên một cấu trúc vững chắc, tối ưu hóa trong việc chăm sóc giấc ngủ và bảo vệ xương cột sống của bạn
+                 </p>
+                </div>
+           </div>
+           <div class="w-[300px] sm:w-[90%]  shadow-lg bg-white rounded-lg p-4 hover:scale-110 transition duration-300 cursor-pointer">
+            <img class="h-[227.88px] w-full object-cover object-center hover:animate-pulse "  src="./product/product.jpg" />
+            <div>
+             <p  class="font-nunito font-bold lg:text-[24px] text-3xl leading-9 text-[#000000] py-[24px]">Nệm đa tầng cloud</p>
+             <p class="font-nunito font-normal lg:text-[18px] lg:leading-[30px] text-2xl leading-[40px] text-[#000000] not-italic tracking-[-0.015em] line-clamp-4">
+               Sự kết hợp giữa nệm cao su và mousse ép tạo nên một cấu trúc vững chắc, tối ưu hóa trong việc chăm sóc giấc ngủ và bảo vệ xương cột sống của bạn
+             </p>
+            </div>
+       </div>
+       <div class="w-[300px] sm:w-[90%]  shadow-lg bg-white rounded-lg p-4 hover:scale-110 transition duration-300 cursor-pointer">
+        <img class="h-[227.88px] w-full object-cover object-center hover:animate-pulse "  src="./product/product.jpg" />
+        <div>
+         <p  class="font-nunito font-bold lg:text-[24px] text-3xl leading-9 text-[#000000] py-[24px]">Nệm đa tầng cloud</p>
+         <p class="font-nunito font-normal lg:text-[18px] lg:leading-[30px] text-2xl leading-[40px] text-[#000000] not-italic tracking-[-0.015em] line-clamp-4">
+           Sự kết hợp giữa nệm cao su và mousse ép tạo nên một cấu trúc vững chắc, tối ưu hóa trong việc chăm sóc giấc ngủ và bảo vệ xương cột sống của bạn
+         </p>
+        </div>
+   </div>
+   <div class="w-[300px] sm:w-[90%]  shadow-lg bg-white rounded-lg p-4 hover:scale-110 transition duration-300 cursor-pointer">
+    <img class="h-[227.88px] w-full object-cover object-center hover:animate-pulse "  src="./product/product.jpg" />
+    <div>
+     <p  class="font-nunito font-bold lg:text-[24px] text-3xl leading-9 text-[#000000] py-[24px]">Nệm đa tầng cloud</p>
+     <p class="font-nunito font-normal lg:text-[18px] lg:leading-[30px] text-2xl leading-[40px] text-[#000000] not-italic tracking-[-0.015em] line-clamp-4">
+       Sự kết hợp giữa nệm cao su và mousse ép tạo nên một cấu trúc vững chắc, tối ưu hóa trong việc chăm sóc giấc ngủ và bảo vệ xương cột sống của bạn
+     </p>
+    </div>
+</div>
+<div class="w-[300px] sm:w-[90%]  shadow-lg bg-white rounded-lg p-4 hover:scale-110 transition duration-300 cursor-pointer">
+  <img class="h-[227.88px] w-full object-cover object-center hover:animate-pulse "  src="./product/product.jpg" />
+  <div>
+   <p  class="font-nunito font-bold lg:text-[24px] text-3xl leading-9 text-[#000000] py-[24px]">Nệm đa tầng cloud</p>
+   <p class="font-nunito font-normal lg:text-[18px] lg:leading-[30px] text-2xl leading-[40px] text-[#000000] not-italic tracking-[-0.015em] line-clamp-4">
+     Sự kết hợp giữa nệm cao su và mousse ép tạo nên một cấu trúc vững chắc, tối ưu hóa trong việc chăm sóc giấc ngủ và bảo vệ xương cột sống của bạn
+   </p>
+  </div>
+</div>
+ 
+
+          </div>
+      </div>
+      <!-- About -->
+      <div class="px-[80px]  max-w-[1440px] mx-auto mt-[100px] bg-[#e8f1da] py-[50px] rounded-[10%]">
+        <h4 class="title text-center text-5xl leading-[4.5rem] font-nunito font-normal opacity-0 transform translate-y-2 transition-opacity duration-100 delay-100 hover:border-b-2 hover:border-gray-500 transition border-b-0">khám phá</h4>
+        <div class="mt-[100px] xl:flex xl:gap-x-[5%]">
+          <div class="2xl:w-[50%] text-center flex">
+            <video class="mx-auto" src="./video/CHARMING DA NANG.mp4" width="640" height="360" poster="poster.jpg" preload="metadata" autoplay loop muted controls></video>
+          </div>
+          <div class="xl:w-[45%]"> 
+                <h4 class="text-[30px] mb-[50px] mt-[50px] xl:mt-[0px] text-center ">CHÚNG TÔI MUỐN BẠN ĐƯỢC
+                  NGỦ NGON SỐNG KHỎE</h4>
+          <div class="flex gap-x-3">
+            <p class="bg-white p-5 rounded-sm text-3xl leading-3xl lg:text-lg">
+              Hơn 39 năm hình thành và phát triển, công ty Nệm Vạn Thành là một thương hiệu uy tín hàng đầu của ngành sản xuất nệm gối các loại và nội thất phòng ngủ, phục vụ trong và ngoài nước với tốc độ tăng trưởng tốt và bền vững.
+
+Sản phẩm chính của Nệm Vạn Thành gồm: Nệm gối cao su thiên nhiên, nệm – giường lò xo các loại, nệm mousse, nệm gòn ép, nệm gấp đa tầng, chăn drap và các loại mousse phục vụ công nghiệp. Tất cả quá trình sản xuất đều quản lý nghiêm ngặt tuân theo Tiêu Chuẩn Quản Lý Chất Lượng Quốc Tế ISO 9001-20015. Giấy phép đạt TCNK Hoa Kỳ do Hiệp Hội Hàng Gia Dụng của Tiểu Bang California cấp số: IMP
+            </p>
+
+          </div>
+          </div>
+        </div>
+    </div>
+   
+    </main>
+    <!-- footer -->
+    <footer class="bg-[#E5E5E5] overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  max-w-[1440px] mx-auto px-[80px] gap-x-[36px] pt-[60px]" >
+        <ul class="flex gap-y-[10px] flex-col">
+          <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] ">Thông tin công ty</p>
+          <div>
+            <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc]">CÔNG TY TNHH PHÁT TRIỂN THƯƠNG MẠI VÀ DỊCH VỤ LIÊN VIỆT</li>
+            <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] ">615/01 Tôn Đản, P.Hoà Phát, Q.Cẩm Lệ, TP.Đà Nẵng</li>
+            <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] ">Mã số doanh nghiệp: 0401997198</li>
+            <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc]">Ngày đăng ký: 23/08/2019 - Sở KH&ĐT TP.Đà Nẵng</li>
+          </div>
+       
+        </ul>
+        <ul class="flex gap-y-[10px] flex-col">
+          <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] ">Show room</p>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] font-normal">Lô C19 II, khu công nghiệp Thọ Quang, Trần Nhân Tông, Q.Sơn Trà, TP.Đà Nẵng</li>
+        </ul>
+        <ul class="flex gap-y-[10px] flex-col ">
+          <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] mt-[50px] md:mt-0  ">Trợ giúp mua hàng</p>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] font-normal">Quy định bảo hành</li>
+        </ul>
+        <ul class="flex gap-y-[10px] flex-col">
+          <p class="font-nunito not-italic  font-bold text-4xl leading-[60px] lg:text-[15px] lg:leading-[24px] text-[#000000] mb-[14px] mt-[50px] md:mt-0 ">Số điện thoại</p>
+          <li class="font-nunito not-italic text-4xl leading-[60px] lg:text-[18px] lg:leading-[30px] tracking-[-0.015em] text-[#000000cc] font-normal xl:flex xl:gap-x-[18.5px]">
+            <i class="fa-solid fa-phone-volume text-[36px]"></i>
+            <p class="text-4xl text-xl font-nunito not-italic font-extrabold leading-[45px]">0933515689</p>
+         
+  
+          </li>
+          <div>
+            <img class="w-[160px] object-cover object-center" src="./image/logoSaleNoti.png"/>
+          </div>
+        </ul>
+      </div>
+      <div class="text-center pb-[15px] font-nunito font-normal text-4xl lg:text-[15px] font-normal leading-[60px] lg:leading-[24px] tracking-[-0.015em]">
+        © 2023 caosuthiennhienwe
+      </div>
+  
+      </footer>
+    <!-- contact -->
+    <div class="fixed right-[2%] bottom-[10%] ">
+      <div class="relative">
+       <img class="shadow-item  cursor-pointer animate-shake  w-[100px] h-[100px] rounded-[50%]" src="./image/phone.png" />
+       <div class="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 rounded-full animate-ping"></div>
+       <div class="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-25 rounded-full animate-pulse"></div>
+   
+      </div>
+      <div class=" rounded-[50%] h-[100px] mt-[20px] fb-icon">
+        <img class="shadow-item cursor-pointer w-[100px] h-[100px] rounded-[50%]" src="./image/zalo.webp" />
+
+      </div>
+
+    </div>
+  </body>
+</html>
